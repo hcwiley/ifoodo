@@ -20,7 +20,7 @@ int blastRight = 0;
 
 int lastBump = 0;
 
-int drivePow = 225;
+int drivePow = 185;
 
 int pwm_a = 3;  //PWM control for motor outputs 1 and 2 is on digital pin 3
 int pwm_b = 11;  //PWM control for motor outputs 3 and 4 is on digital pin 11
@@ -47,7 +47,7 @@ void setup() {
 void checkBackBump(int times){
   blastLeft = 0;
   blastRight = 0;
-  for(int i = 0; i <  times/5; i++){
+  for(int i = 0; i <  times/4; i++){
       delay(50);
       bleftBumperVal = digitalRead(bleftBumperPin);
       if(bleftBumperVal == 1 && blastLeft++ > 5){
@@ -97,18 +97,17 @@ void turn(char dir){
     Serial.println("back");
     analogWrite(pwm_a, drivePow);
     analogWrite(pwm_b, drivePow);
-    delay(400);
+    delay(600);
     checkBackBump(20);
     analogWrite(pwm_a, 0);
     analogWrite(pwm_b, 0);
-    delay(1000);
+    delay(800);
     Serial.println("turn");
-    delay(200);
     if(dir == 'l')
       analogWrite(pwm_b, 255);
     else
       analogWrite(pwm_a, 255);
-    delay(600);
+    delay(800);
     if(dir == 'b')
       checkBackBump(46);
     else if(dir == 'l')
